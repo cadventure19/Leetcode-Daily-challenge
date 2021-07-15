@@ -1,19 +1,19 @@
-class Solution(object):
-    def findPeakElement(self, nums):
-        a=len(nums)
-        if a==1:
-            return 0
-        if a==2:
-            if nums[1]>nums[0]:
-                return 1
-        if nums[a-1]>nums[a-2]:
-            return a-1
-            
-            
-        for i in range(1,a-1):
-            if nums[i-1]<nums[i]:
-                b=nums[i]
-                if b>nums[i+1]:
-                    return i
+class Solution:
+    def findPeakElement(self, nums: List[int]) -> int:
+        nums=[float('-inf')]+nums+[float('-inf')]
+        n=len(nums)
+        left=1
+        right=n-2
         
-        return 0
+        while left<right:
+            mid=(left+right)//2
+            if nums[mid-1]<nums[mid] and nums[mid]>nums[mid+1]:
+                return mid-1
+            
+            
+            if nums[mid-1]>nums[mid]:
+                right=mid
+            
+            else:
+                left=mid+1
+        return left-1
